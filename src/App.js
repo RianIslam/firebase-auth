@@ -54,6 +54,12 @@ function App() {
 
   const handleBlur = (e) =>{
     console.log(e.target.name, e.target.value)
+    if(e.target.name === "email"){
+
+    }
+    if(e.target.name === "password"){
+      
+    }
     
   }
 
