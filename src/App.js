@@ -42,9 +42,12 @@ function App() {
     .then(res =>{
       const signedOutUser = {
         isSignIn:false,
+        newUser: '',
         name:'',
         photo:'',
-        email: ''
+        email: '',
+        error: '',
+        success: ''
       }
       setUser(signedOutUser)
     })
@@ -74,10 +77,24 @@ function App() {
     
   }
 
-  const handleSubmit = () =>{
+  const handleSubmit = (e) =>{
 
-    if(user.name && user.password){
+    if(user.email && user.password){
+      
+  firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
 
+  .then(res =>{
+    const newUserInfo = {...user};
+    newUserInfo.error = '';
+    newUserInfo.success =true;
+    setUser(newUserInfo)
+  })
+  .catch((error) => {
+    const newUserInfo = {...user};
+    newUserInfo.error = error.message;
+    newUserInfo.success =false;
+    setUser(newUserInfo)
+  });
     }
     e.preventDefault();
   }
@@ -98,9 +115,8 @@ function App() {
       }
 
       <h1>Firebase Authentication</h1>
-      <p>Name: {user.name}</p>
-      <p>Email : {user.email}</p>
-      <p>Passaword : {user.password}</p>
+      <input type="checkbox" name="newUser" id=""/>
+      <label htmlFor="newUser">New User Sign Up</label>
       <form onSubmit={handleSubmit}  action="">
       <input type="text" name="name" onBlur={handleBlur} placeholder="Your Name"/>
       <br/>
@@ -110,6 +126,8 @@ function App() {
       <br/>
       <input type="button" value="Submit"/>
       </form>
+      <p>{user.error}</p>
+      {user.success &&  <p>User created successfully</p>}
     </div>
   );
 }
