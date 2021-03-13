@@ -12,6 +12,7 @@ function App() {
     isSignIn:false,
     name: '',
     email: '',
+    password: '',
     photo: ''
   })
 
@@ -53,16 +54,21 @@ function App() {
   }
 
   const handleBlur = (e) =>{
-    console.log(e.target.name, e.target.value)
+    let  isFormValid = true;
+    
     if(e.target.name === "email"){
-      const inEmailValid = /\S+@\S+\.\S+/.test(e.target.value)
-      console.log(inEmailValid)
+      const isFormValid = /\S+@\S+\.\S+/.test(e.target.value)
+      
     } 
     if(e.target.name === "password"){
       const isPassValid =e.target.value.length > 6;
       const passWordHasNumber = /\d{1}/.test(e.target.value);
-      console.log(isPassValid);
-      console.log(passWordHasNumber)
+      isFormValid =isPassValid   && passWordHasNumber;
+    }
+    if(isFormValid){
+      const newUserInfo ={...user};
+      newUserInfo[e.target.name] = e.target.value;
+      setUser(newUserInfo)
     }
     
   }
@@ -87,7 +93,10 @@ function App() {
       }
 
       <h1>Firebase Authentication</h1>
+      <p>Email : {user.email}</p>
+      <p>Passaword : {user.password}</p>
       <form onSubmit={handleSubmit}  action="">
+      <input type="text" name="name" placeholder="Your Name"/>
       <input type="email" name="email" onBlur={handleBlur} placeholder="Your E-mail" required/>
       <br/>
       <input type="password" name="password" onBlur={handleBlur} placeholder="Your Password" required id=""/>
