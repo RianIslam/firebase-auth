@@ -52,8 +52,9 @@ function App() {
     })
   }
 
-  const handleChange = (event) =>{
-    console.log(event.target.value)
+  const handleChange = (e) =>{
+    console.log(e.target.name, e.target.value)
+    
   }
 
   const handleSubmit = () =>{
@@ -77,9 +78,9 @@ function App() {
 
       <h1>Firebase Authentication</h1>
       <form onSubmit={handleSubmit}  action="">
-      <input type="email" onChange={handleChange} placeholder="Your E-mail" required/>
+      <input type="email" name="email" onChange={handleChange} placeholder="Your E-mail" required/>
       <br/>
-      <input type="password" name="" placeholder="Your Password" required id=""/>
+      <input type="password" name="Password" onChange={handleChange} placeholder="Your Password" required id=""/>
       <br/>
       <input type="button" value="Submit"/>
       </form>
