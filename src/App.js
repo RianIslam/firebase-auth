@@ -55,10 +55,11 @@ function App() {
   const handleBlur = (e) =>{
     console.log(e.target.name, e.target.value)
     if(e.target.name === "email"){
-
-    }
+      const inEmailValid = /\S+@\S+\.\S+/.test(e.target.value)
+      console.log(inEmailValid)
+    } 
     if(e.target.name === "password"){
-      
+
     }
     
   }
