@@ -63,7 +63,8 @@ function App() {
     if(e.target.name === "password"){
       const isPassValid =e.target.value.length > 6;
       const passWordHasNumber = /\d{1}/.test(e.target.value);
-      isFormValid =isPassValid   && passWordHasNumber;
+      console.log(isPassValid && passWordHasNumber)
+      isFormValid =isPassValid && passWordHasNumber;
     }
     if(isFormValid){
       const newUserInfo ={...user};
@@ -93,10 +94,12 @@ function App() {
       }
 
       <h1>Firebase Authentication</h1>
+      <p>Name: {user.name}</p>
       <p>Email : {user.email}</p>
       <p>Passaword : {user.password}</p>
       <form onSubmit={handleSubmit}  action="">
-      <input type="text" name="name" placeholder="Your Name"/>
+      <input type="text" name="name" onBlur={handleBlur} placeholder="Your Name"/>
+      <br/>
       <input type="email" name="email" onBlur={handleBlur} placeholder="Your E-mail" required/>
       <br/>
       <input type="password" name="password" onBlur={handleBlur} placeholder="Your Password" required id=""/>
