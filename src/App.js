@@ -54,19 +54,19 @@ function App() {
   }
 
   const handleBlur = (e) =>{
-    let  isFormValid = true;
+    let  isFieldValid = true;
     
     if(e.target.name === "email"){
-      const isFormValid = /\S+@\S+\.\S+/.test(e.target.value)
+      const isFieldValid = /\S+@\S+\.\S+/.test(e.target.value)
       
     } 
     if(e.target.name === "password"){
       const isPassValid =e.target.value.length > 6;
       const passWordHasNumber = /\d{1}/.test(e.target.value);
       console.log(isPassValid && passWordHasNumber)
-      isFormValid =isPassValid && passWordHasNumber;
+      isFieldValid =isPassValid && passWordHasNumber;
     }
-    if(isFormValid){
+    if(isFieldValid){
       const newUserInfo ={...user};
       newUserInfo[e.target.name] = e.target.value;
       setUser(newUserInfo)
@@ -76,6 +76,10 @@ function App() {
 
   const handleSubmit = () =>{
 
+    if(user.name && user.password){
+
+    }
+    e.preventDefault();
   }
 
   return (
