@@ -134,6 +134,8 @@ user.updateProfile({
       user.isSignIn ? <button onClick={handleSingOut}>Sign Out</button>:
       <button onClick={handleSignIn}>Sign In</button>
     }
+    <br/>
+    <button>Log In Using Facebook</button>
       
       {
         user.isSignIn && <div>
@@ -153,7 +155,7 @@ user.updateProfile({
       <br/>
       <input type="password" name="password" onBlur={handleBlur} placeholder="Your Password" required id=""/>
       <br/>
-      <input type="button" value="Submit"/>
+      <input type="button" value={newUser ? 'sign up' : 'sign in'}/>
       </form>
       <p>{user.error}</p>
       {user.success &&  <p>User {newUser ? "created" : "Logged In" } successfully</p>}
