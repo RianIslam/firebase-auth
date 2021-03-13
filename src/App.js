@@ -59,7 +59,10 @@ function App() {
       console.log(inEmailValid)
     } 
     if(e.target.name === "password"){
-
+      const isPassValid =e.target.value.length > 6;
+      const passWordHasNumber = /\d{1}/.test(e.target.value);
+      console.log(isPassValid);
+      console.log(passWordHasNumber)
     }
     
   }
@@ -87,7 +90,7 @@ function App() {
       <form onSubmit={handleSubmit}  action="">
       <input type="email" name="email" onBlur={handleBlur} placeholder="Your E-mail" required/>
       <br/>
-      <input type="password" name="Password" onBlur={handleBlur} placeholder="Your Password" required id=""/>
+      <input type="password" name="password" onBlur={handleBlur} placeholder="Your Password" required id=""/>
       <br/>
       <input type="button" value="Submit"/>
       </form>
