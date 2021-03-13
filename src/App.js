@@ -8,6 +8,7 @@ import { useState } from 'react';
 firebase.initializeApp(firebaseConfig)
 function App() {
 
+  const [newUser,setNewUser] =useState(false);
   const [user,setUser] = useState({
     isSignIn:false,
     name: '',
@@ -42,7 +43,6 @@ function App() {
     .then(res =>{
       const signedOutUser = {
         isSignIn:false,
-        newUser: '',
         name:'',
         photo:'',
         email: '',
@@ -79,16 +79,29 @@ function App() {
 
   const handleSubmit = (e) =>{
 
-    if(user.email && user.password){
-      
+    if(newUser && user.email && user.password){   
   firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-
   .then(res =>{
     const newUserInfo = {...user};
     newUserInfo.error = '';
     newUserInfo.success =true;
     setUser(newUserInfo)
   })
+  .catch((error) => {
+    const newUserInfo = {...user};
+    newUserInfo.error = error.message;
+    newUserInfo.success =false;
+    setUser(newUserInfo)
+  });
+    }
+    if(!newUser && user.email && user.password){
+      firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+      .then(res =>{
+        const newUserInfo = {...user};
+        newUserInfo.error = '';
+        newUserInfo.success =true;
+        setUser(newUserInfo)
+      })
   .catch((error) => {
     const newUserInfo = {...user};
     newUserInfo.error = error.message;
@@ -115,10 +128,10 @@ function App() {
       }
 
       <h1>Firebase Authentication</h1>
-      <input type="checkbox" name="newUser" id=""/>
+      <input type="checkbox"  onChange={() =>{setNewUser(!newUser)}} name="newUser" id=""/>
       <label htmlFor="newUser">New User Sign Up</label>
       <form onSubmit={handleSubmit}  action="">
-      <input type="text" name="name" onBlur={handleBlur} placeholder="Your Name"/>
+     {newUser && <input type="text" name="name" onBlur={handleBlur} placeholder="Your Name"/>}
       <br/>
       <input type="email" name="email" onBlur={handleBlur} placeholder="Your E-mail" required/>
       <br/>
@@ -127,7 +140,7 @@ function App() {
       <input type="button" value="Submit"/>
       </form>
       <p>{user.error}</p>
-      {user.success &&  <p>User created successfully</p>}
+      {user.success &&  <p>User {newUser ? "created" : "Logged In" } successfully</p>}
     </div>
   );
 }
