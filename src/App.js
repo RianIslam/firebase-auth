@@ -52,6 +52,10 @@ function App() {
     })
   }
 
+  const handleSubmit = () =>{
+
+  }
+
   return (
     <div className="App">
     {
@@ -68,12 +72,12 @@ function App() {
       }
 
       <h1>Firebase Authentication</h1>
-      <form action="">
+      <form onSubmit={handleSubmit}  action="">
       <input type="email" placeholder="Your E-mail" required/>
       <br/>
       <input type="password" name="" placeholder="Your Password" required id=""/>
       <br/>
-      <button>Submit</button>
+      <input type="button" value="Submit"/>
       </form>
     </div>
   );
