@@ -66,6 +66,15 @@ function App() {
           <img src={user.photo} alt=""/>
       </div>
       }
+
+      <h1>Firebase Authentication</h1>
+      <form action="">
+      <input type="email" placeholder="Your E-mail" required/>
+      <br/>
+      <input type="password" name="" placeholder="Your Password" required id=""/>
+      <br/>
+      <button>Submit</button>
+      </form>
     </div>
   );
 }
